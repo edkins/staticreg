@@ -1,0 +1,6 @@
+trait AsReg {
+}
+
+struct Reg(t: AsReg) {
+    id: 16t
+}
