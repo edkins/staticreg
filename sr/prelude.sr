@@ -4,3 +4,26 @@ trait AsReg {
 struct Reg(t: AsReg) {
     id: 16t
 }
+
+struct RegMut(t: AsReg) {
+    id: 16t
+}
+
+struct RegMask(t: AsReg) {
+    id: 16t,
+    count: usize
+}
+
+impl(t: AsReg) RegMut(t) {
+    fn fix(self -> RegMask(t)) -> Reg(t) {
+        result = Reg { id: self.id };
+        self = RegMask { id: self.id, count: 1 };
+    }
+}
+
+impl(t: AsReg) RegMask(t) {
+    fn copy(self, x:Reg(t)) -> Reg(t) where self.id == x.id {
+        result = Reg { id: self.id };
+	self.count += 1;
+    }
+}
